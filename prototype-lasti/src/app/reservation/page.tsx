@@ -18,6 +18,7 @@ const ReservationPage = () => {
         created_date: new Date(),
         date: new Date(),
         service: "",
+        token: "",
     });
     const [value, onChange] = useState<Value>(new Date());
     const [isComplete, setIsComplete] = useState(false);
@@ -42,12 +43,20 @@ const ReservationPage = () => {
         let allFilled = true;
         if (formInfo.name === "") allFilled = false;
         if (formInfo.phone_number === "") allFilled = false;
-        if (formInfo.date.getTime() === formInfo.created_date.getTime()) allFilled = false;
+        if ((formInfo.date as Date).getTime() === formInfo.created_date.getTime()) allFilled = false;
         if (formInfo.service === "") allFilled = false;
         setIsComplete(allFilled);
     }, [formInfo]);
 
-
+    const fetchToken = async () => {
+        const token = await fetch("/api/getToken", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        return token;
+    }
 
     return (
         <div className="flex flex-col justify-center items-center min-h-screen bg-neutral">
@@ -79,7 +88,19 @@ const ReservationPage = () => {
                 <button 
                 className="btn w-full"
                 disabled={!isComplete}
-                onClick={() => addReservation(formInfo)}>
+                onClick={ async () => {
+                    try {
+                        const response = await fetchToken();
+                        const data = await response.json();
+                        const newFormInfo = {...formInfo, token: data.token}
+                        addReservation(newFormInfo).then(() => {
+                            window.open(data.redirect_url, "_blank");
+                            window.location.href="/reservation/success";
+                        });
+                    } catch(err) {
+                        console.error(err);
+                    }
+                    }}>
                     Submit
                 </button>
 

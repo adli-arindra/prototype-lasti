@@ -12,24 +12,3 @@ const GenerateBase64OrderId = () => {
 };
 
 export { endpoint, MerchantID, ClientKey, ServerKey, AUTH_STRING, content_type, GenerateBase64OrderId}
-
-// export const GetToken = async () => {
-//     const order_id = GenerateBase64OrderId();
-  
-//     const transaction_token = await fetch(endpoint, {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": content_type,
-//             "Accept": content_type,
-//             "Authorization": AUTH_STRING    
-//         },
-//         body: JSON.stringify({
-//             "transaction_details" : {
-//                 "order_id": order_id,
-//                 "gross_amount": 1000
-//             }
-//         }),
-//     });
-
-//     return transaction_token;
-// }
