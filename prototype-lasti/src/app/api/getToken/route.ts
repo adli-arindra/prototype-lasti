@@ -1,7 +1,6 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { GenerateBase64OrderId, endpoint, content_type, AUTH_STRING } from "../midtrans";
 
-export async function POST(req: Request) {
+export async function POST() {
     const order_id = GenerateBase64OrderId();
     try {
         const response = await fetch(endpoint, {
@@ -23,6 +22,7 @@ export async function POST(req: Request) {
             status: 200
         });
     } catch(err) {
+        console.log(err);
         return new Response("Error processing request", {status: 500});
     }
 }

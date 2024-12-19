@@ -22,7 +22,7 @@ const TextInput = ( {parentFunction, valueName, placeholder} : props) => {
 
     return (
         <div className="w-full">
-            <p>{format(valueName)}</p>
+            <p className="text-black">{format(valueName)}</p>
             <input type="text" placeholder={placeholder || ""} 
             className="input w-full" onChange={(e) => {handleChange(e.target.value)}}/>
         </div>

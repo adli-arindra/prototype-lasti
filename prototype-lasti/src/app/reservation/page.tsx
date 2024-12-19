@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import TextInput from "../components/textInput";
 import { ReserveInfo, addReservation } from "@/firebase/reservation"; 
 import { useState, useEffect } from "react";
@@ -59,34 +58,38 @@ const ReservationPage = () => {
     }
 
     return (
-        <div className="flex flex-col justify-center items-center min-h-screen bg-neutral">
-            <div className="flex flex-col justify-center items-center bg-gray-600 px-8 py-8 rounded-2xl gap-4">
-                <TextInput valueName="name" parentFunction={handleInputChange} placeholder="Ahmad Garuda"/>
-                <TextInput valueName="phone_number" parentFunction={handleInputChange} placeholder="081xxxxxxxxx"/>
+        <div className="min-h-screen bg-white flex flex-col justify-center items-center gap-8">
+            <div className="flex flex-row justify-center items-center px-8 gap-8">
                 <div>
-                    <p>Select a date</p>
-                    <Calendar value={value} onChange={onChange} className="text-black rounded-xl"/>
-                </div>
-                <div className="w-full">
-                    <p>Select a service</p>
-                    <div className="grid grid-cols-2 gap-1">
-                        {services.map((service) => (
-                            <label key={service} className="block">
-                            <input
-                                type="radio"
-                                value={service}
-                                checked={formInfo.service === service}
-                                onChange={() => handleInputChange("service", service)}
-                                className="btn w-full"
-                                aria-label={service}
-                            />
-                            </label>
-                        ))}
+                    <TextInput valueName="name" parentFunction={handleInputChange} placeholder="Ahmad Garuda"/>
+                    <TextInput valueName="phone_number" parentFunction={handleInputChange} placeholder="081xxxxxxxxx"/>
+                    <div className="w-full">
+                        <p className="text-black">Select a service</p>
+                        <div className="grid grid-cols-2 gap-1">
+                            {services.map((service) => (
+                                <label key={service} className="block">
+                                <input
+                                    type="radio"
+                                    value={service}
+                                    checked={formInfo.service === service}
+                                    onChange={() => handleInputChange("service", service)}
+                                    className="btn bg-gray-400 checked:bg-orange-500 w-full"
+                                    aria-label={service}
+                                />
+                                </label>
+                            ))}
+                        </div>
                     </div>
                 </div>
+                <div>
+                    <p className='text-black'>Select a date</p>
+                    <Calendar value={value} onChange={onChange} className="text-black rounded-xl"/>
+                </div>
+            </div>
+            <div className="flex justify-center items-center flex-col">
                 {isComplete? "" : <p className="text-red-400 text-s">Please fill all the required forms</p>}
                 <button 
-                className="btn w-full"
+                className="btn btn-primary"
                 disabled={!isComplete}
                 onClick={ async () => {
                     try {
@@ -103,7 +106,6 @@ const ReservationPage = () => {
                     }}>
                     Submit
                 </button>
-
             </div>
         </div>
     );
