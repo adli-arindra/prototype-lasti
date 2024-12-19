@@ -6,19 +6,19 @@ const Home = () => {
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
         {/* Left Content */}
-        <div className="flex flex-col justify-around mb-52">
+        <div className="flex flex-col md:justify-around md:mb-52 mb-0">
           <h1 className="text-4xl md:text-5xl font-bold">
             Discover
             <br />
             <span className="text-gray-700">The style you fit the best</span>
           </h1>
-          <div className="mt-8">
+          <div className="mt-8 hidden md:block">
             <h2 className="text-xl font-semibold">2024 Trend New Style</h2>
             <button className="mt-2 inline-block text-orange-500 hover:underline">
               View all →
             </button>
           </div>
-          <div className="mt-8 text-gray-600">
+          <div className="mt-8 text-gray-600 hidden md:block">
             <p className="text-4xl font-bold">4.5</p>
             <p className="mt-2">What they said about us?</p>
             <div className="flex mt-4 space-x-2">
@@ -35,8 +35,8 @@ const Home = () => {
       </section>
 
       {/* Services Section */}
-        <div className="flex flex-col gap-4 justify-between min-w-52 mt-52">
-            <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 md:justify-between min-w-52 md:mt-52">
+            <div className="flex-col gap-4 hidden md:block">
             {["Services", "Pricelist", "Style & Trend"].map((item) => (
             <button
                 key={item}

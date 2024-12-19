@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="bg-white text-black sticky top-0">
+    <nav className="text-black sticky top-0">
       <div className="container mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
         <div className="text-2xl font-bold my-4">
@@ -64,20 +64,6 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu */}
         <div className="md:hidden">
-          <div className="flex flex-col items-center space-y-4 p-4 bg-gray-700">
-            <button>
-              <p className="hover:text-orange-500">About</p>
-            </button>
-            <button>
-              <p className="hover:text-orange-500">Services</p>
-            </button>
-            <button>
-              <p className="hover:text-orange-500">Contact</p>
-            </button>
-            <Link href="/admin">
-              <p className="hover:text-orange-500">Profile</p>
-            </Link>
-          </div>
         </div>
     </nav>
   );
