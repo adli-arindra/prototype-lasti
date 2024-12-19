@@ -35,8 +35,8 @@ const Home = () => {
       </section>
 
       {/* Services Section */}
-        <div className="flex flex-col gap-4 md:justify-between min-w-52 md:mt-52">
-            <div className="flex-col gap-4 hidden md:block">
+      <div className="flex flex-col gap-4 justify-between min-w-52 mt-52">
+        <div className="md:flex flex-col gap-4 hidden">
             {["Services", "Pricelist", "Style & Trend"].map((item) => (
             <button
                 key={item}
