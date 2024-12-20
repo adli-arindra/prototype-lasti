@@ -46,6 +46,7 @@ const ReservationPage = () => {
         if (formInfo.phone_number === "") allFilled = false;
         if ((formInfo.date as Date).getTime() === formInfo.created_date.getTime()) allFilled = false;
         if (formInfo.service === "") allFilled = false;
+        if (formInfo.time === "") allFilled = false;
         setIsComplete(allFilled);
     }, [formInfo]);
 
@@ -116,10 +117,9 @@ const ReservationPage = () => {
                 </div>
             </div>
             <div className="flex justify-center items-center flex-col">
-                {isComplete? "" : <p className="text-red-400 text-s">Please fill all the required forms</p>}
+                {isComplete?
                 <button 
                 className="w-full text-center px-4 py-2 rounded-md border hover:bg-orange-400 hover:text-black transition bg-orange-500 text-white border-orange-500"     
-                disabled={!isComplete}
                 onClick={ async () => {
                     try {
                         const response = await fetchToken();
@@ -135,6 +135,12 @@ const ReservationPage = () => {
                     }}>
                     Submit
                 </button>
+                : 
+                <>
+                    <p className="text-red-400 text-s">Please fill all the required forms</p>
+                    <p className="w-full text-center px-4 py-2 rounded-md border  transition bg-gray-400 text-white border-gray-700">                        
+                    Submit</p>
+                </>}
             </div>
         </div>
     );
