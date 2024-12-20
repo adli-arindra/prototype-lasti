@@ -28,7 +28,7 @@ export async function fetchItems() {
     querySnapshot.forEach((doc) => {
         const data = doc.data();
         const newReserveInfo = data as ReserveInfo;
-        newReserveInfo.date = new Date(data.date);
+        newReserveInfo.date = data.date.toDate();
         ret.push(newReserveInfo);
     });
     return ret;
