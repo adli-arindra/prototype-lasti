@@ -9,6 +9,7 @@ type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const services: string[] = [ "Full Service", "Haircut Only", "Perming", "Coloring", "Massage Only", "Facial Treatment" ];
+const times: string[] = [ "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00" ];
 
 const ReservationPage = () => {
     const [formInfo, setFormInfo] = useState<ReserveInfo>({
@@ -16,6 +17,7 @@ const ReservationPage = () => {
         phone_number: "",
         created_date: new Date(),
         date: new Date(),
+        time: "",
         service: "",
         token: "",
     });
@@ -67,15 +69,20 @@ const ReservationPage = () => {
                         <p className="text-black">Select a service</p>
                         <div className="grid grid-cols-2 gap-1">
                             {services.map((service) => (
-                                <label key={service} className="block">
+                                <label key={service} className="block w-full">
                                 <input
                                     type="radio"
                                     value={service}
                                     checked={formInfo.service === service}
                                     onChange={() => handleInputChange("service", service)}
-                                    className="btn bg-gray-400 checked:bg-orange-500 w-full"
+                                    className="hidden peer"
                                     aria-label={service}
                                 />
+                                <span className="block w-full text-center px-4 py-2 rounded-md border border-gray-300 bg-gray-200 text-gray-800 
+                                                hover:bg-gray-300 hover:text-black transition 
+                                                peer-checked:bg-orange-500 peer-checked:text-white peer-checked:border-orange-500">
+                                    {service}
+                                </span>
                                 </label>
                             ))}
                         </div>
@@ -85,11 +92,33 @@ const ReservationPage = () => {
                     <p className='text-black'>Select a date</p>
                     <Calendar value={value} onChange={onChange} className="text-black rounded-xl"/>
                 </div>
+                <div className="text-black">
+                    <h1>Pick a time</h1>
+                    <div className="grid grid-cols-2 gap-2 bg-white border border-gray-500 rounded-2xl h-full p-2">
+                        {times.map((time) => (
+                            <label key={time} className="block w-full">
+                            <input
+                                type="radio"
+                                value={time}
+                                checked={formInfo.time === time}
+                                onChange={() => handleInputChange("time", time)}
+                                className="hidden peer"
+                                aria-label={time}
+                            />
+                            <span className="block w-full text-center px-4 py-2 rounded-md border border-gray-300 bg-gray-200 text-gray-800 
+                                             hover:bg-gray-300 hover:text-black transition 
+                                             peer-checked:bg-orange-500 peer-checked:text-white peer-checked:border-orange-500">
+                                {time}
+                            </span>
+                            </label>
+                        ))}
+                    </div>
+                </div>
             </div>
             <div className="flex justify-center items-center flex-col">
                 {isComplete? "" : <p className="text-red-400 text-s">Please fill all the required forms</p>}
                 <button 
-                className="btn btn-primary"
+                className="w-full text-center px-4 py-2 rounded-md border hover:bg-orange-400 hover:text-black transition bg-orange-500 text-white border-orange-500"     
                 disabled={!isComplete}
                 onClick={ async () => {
                     try {

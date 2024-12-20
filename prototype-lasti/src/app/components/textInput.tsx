@@ -22,9 +22,15 @@ const TextInput = ( {parentFunction, valueName, placeholder} : props) => {
 
     return (
         <div className="w-full">
-            <p className="text-black">{format(valueName)}</p>
-            <input type="text" placeholder={placeholder || ""} 
-            className="input w-full" onChange={(e) => {handleChange(e.target.value)}}/>
+            <p className="text-black mb-2">{format(valueName)}</p>
+            <input 
+                type="text" 
+                placeholder={placeholder || ""} 
+                className="w-full px-4 py-2 rounded-md border border-gray-300 bg-gray-200 text-gray-800 
+                        placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 
+                        focus:border-orange-500 transition"
+                onChange={(e) => handleChange(e.target.value)} 
+            />
         </div>
     );
 }

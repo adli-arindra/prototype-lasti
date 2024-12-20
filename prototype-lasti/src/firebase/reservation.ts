@@ -9,6 +9,7 @@ export interface ReserveInfo {
     phone_number: string,
     created_date: Date,
     date: Date,
+    time: string,
     service: string,
     token: string,
 }
