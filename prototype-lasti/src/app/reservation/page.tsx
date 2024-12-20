@@ -1,6 +1,7 @@
 "use client";
+import { get } from "http";
 import TextInput from "../components/textInput";
-import { ReserveInfo, addReservation } from "@/firebase/reservation"; 
+import { ReserveInfo, addReservation, fetchItems } from "@/firebase/reservation"; 
 import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
@@ -23,6 +24,7 @@ const ReservationPage = () => {
     });
     const [value, onChange] = useState<Value>(new Date());
     const [isComplete, setIsComplete] = useState(false);
+    const [reservations, setReservations] = useState<ReserveInfo[]>([]);
 
     const handleInputChange = (key: string, value: string | Date) => {
         setFormInfo((prev) => ({
@@ -59,6 +61,24 @@ const ReservationPage = () => {
         });
         return token;
     }
+    
+    useEffect(() => {
+        const getReservations = async () => {
+            const ret = await fetchItems();
+            setReservations(ret);
+        }
+        getReservations();
+    }, []);
+
+    const get_time = () => {
+        let avail_time = [...times];
+        for (let i = 0; i < reservations.length; ++i) {
+            if (formInfo.date.getTime() === reservations[i].date.getTime()) {
+                avail_time = avail_time.filter(item => item !== reservations[i].time);
+            }
+        }
+        return avail_time;
+    };
 
     return (
         <div className="min-h-screen bg-white flex flex-col justify-center items-center gap-8">
@@ -96,7 +116,7 @@ const ReservationPage = () => {
                 <div className="text-black">
                     <h1>Pick a time</h1>
                     <div className="grid grid-cols-2 gap-2 bg-white border border-gray-500 rounded-2xl h-full p-2">
-                        {times.map((time) => (
+                        {get_time().map((time) => (
                             <label key={time} className="block w-full">
                             <input
                                 type="radio"
