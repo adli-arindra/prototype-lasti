@@ -28,14 +28,23 @@ const CustomerTable = ({className}:{className:string}) => {
             </tr>
             </thead>
             <tbody>
-            {reservations.map(item => (
-                <tr key={item.token}>
-                <td>{item.name}</td>
-                <td>{item.date.toISOString()}</td>
-                <td>{item.phone_number}</td>
-                <td>{item.service}</td>
-                </tr>
-            ))}
+            {reservations.map(item => {
+                let date;
+                try {
+                    date = item.date.toISOString();
+                }
+                catch {
+                    date= "";
+                }
+                return (
+                    <tr key={item.token}>
+                    <td>{item.name}</td>
+                    <td>{date}</td>
+                    <td>{item.phone_number}</td>
+                    <td>{item.service}</td>
+                    </tr>
+                );
+            })}
             </tbody>
         </table>
         </div>
