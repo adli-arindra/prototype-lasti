@@ -14,18 +14,6 @@ const CustomerTable = ({className}:{className:string}) => {
         }
         getReservations();
     }, []);
-    
-    const formatDate = (inputDate: any) => {
-        const date = new Date(inputDate);
-        const formattedDate = date.toLocaleDateString("en-US", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-        });
-    
-        return formattedDate;
-      };
 
     return (
         <div className={className}>
@@ -40,14 +28,6 @@ const CustomerTable = ({className}:{className:string}) => {
             </thead>
             <tbody>
             {reservations.map(item => {
-                let date;
-                console.log(item.date);
-                try {
-                    date = item.date.toISOString();
-                }
-                catch {
-                    date= "";
-                }
                 return (
                     <tr key={item.token}>
                     <td>{item.name}</td>
